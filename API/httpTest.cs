@@ -26,7 +26,9 @@ public class HttpTest
         [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ILogger log)
     {
         log.LogInformation("C# HTTP trigger function processed a request.");
-
+        
+        log.LogInformation(DatabaseMetaData.GetMySqlConnectionString());
+            
         string name = req.Query["name"];
 
         string requestBody = await new StreamReader(req.Body).ReadToEndAsync();

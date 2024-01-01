@@ -14,8 +14,8 @@ public class Startup : FunctionsStartup
     {
         builder.Services.AddDbContext<JutTripsDbContext>(options =>
         {
-            const string connectionString = DatabaseMetaData.ConnectionString;
-            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            var mySqlConnectionString = DatabaseMetaData.GetMySqlConnectionString();
+            options.UseMySql(mySqlConnectionString, ServerVersion.AutoDetect(mySqlConnectionString));
         });
     }
 }
