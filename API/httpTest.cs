@@ -1,5 +1,7 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web.Http;
 using juttrips_azure_function.Domain.Entities;
 using juttrips_azure_function.Infrastructure.DatabaseConfig;
 using Microsoft.AspNetCore.Http;
@@ -25,43 +27,64 @@ public class HttpTest
     public async Task<IActionResult> RunAsync(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ILogger log)
     {
-        log.LogInformation("C# HTTP trigger function processed a request.");
+        try
+        {
+            log.LogInformation("C# HTTP trigger function processed a request.");
         
-        log.LogInformation(DatabaseMetaData.GetMySqlConnectionString());
+            log.LogInformation(DatabaseMetaData.GetMySqlConnectionString());
             
-        string name = req.Query["name"];
+            string name = req.Query["name"];
 
-        string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-        dynamic data = JsonConvert.DeserializeObject(requestBody);
-        name = name ?? data?.name;
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            dynamic data = JsonConvert.DeserializeObject(requestBody);
+            name = name ?? data?.name;
 
-        return name != null
-            ? (ActionResult) new OkObjectResult($"Hello, {name}")
-            : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+            return name != null
+                ? (ActionResult) new OkObjectResult($"Hello, {name}")
+                : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+        }
+        catch (Exception exception)
+        {
+            return new BadRequestObjectResult(exception);
+        }
     }
     
     [FunctionName("users")]
     public async Task<IActionResult> GetUsers(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
     {
-        var result = await _dbContext.Users.ToListAsync();
+        try
+        {
+            var result = await _dbContext.Users.ToListAsync();
     
-        return new OkObjectResult(result);
+            return new OkObjectResult(result);
+        }
+        catch (Exception exception)
+        {
+            return new BadRequestObjectResult(exception);
+        }
     }
     
     [FunctionName("user")]
     public async Task<IActionResult> PostUsers(
         [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req)
     {
-        var user = new User()
+        try
         {
-            UserName = "Newtanachot",
-            Password = "password"
-        };
+            var user = new User()
+            {
+                UserName = "Newtanachot",
+                Password = "password"
+            };
 
-        await _dbContext.Users.AddAsync(user);
-        await _dbContext.SaveChangesAsync();
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
     
-        return new OkResult();
+            return new OkResult();
+        }
+        catch (Exception exception)
+        {
+            return new BadRequestObjectResult(exception);
+        }
     }
 }
