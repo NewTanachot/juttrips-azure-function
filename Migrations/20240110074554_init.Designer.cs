@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using juttrips_azure_function.Infrastructure.DatabaseConfig;
 
@@ -10,9 +11,10 @@ using juttrips_azure_function.Infrastructure.DatabaseConfig;
 namespace juttrips_azure_function.Migrations
 {
     [DbContext(typeof(JutTripsDbContext))]
-    partial class JutTripsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240110074554_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

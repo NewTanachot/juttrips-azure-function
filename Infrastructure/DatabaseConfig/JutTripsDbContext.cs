@@ -5,8 +5,14 @@ namespace juttrips_azure_function.Infrastructure.DatabaseConfig;
 
 public class JutTripsDbContext : DbContext
 {
-    public DbSet<User> Users { get; set; } = null!;
-    
+    public DbSet<User> User { get; set; } = null!;
+
+    public DbSet<Group> Group { get; set; } = null!;
+
+    public DbSet<UserPlace> UserPlace { get; set; } = null!;
+
+    public DbSet<GroupPlace> GroupPlace { get; set; } = null!;
+
     public JutTripsDbContext(DbContextOptions<JutTripsDbContext> options) : base(options)
     {
         

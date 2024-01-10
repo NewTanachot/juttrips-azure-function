@@ -12,10 +12,10 @@ public class Startup : FunctionsStartup
 {
     public override void Configure(IFunctionsHostBuilder builder)
     {
+        var mySqlConnectionString = DatabaseMetaData.GetMySqlConnectionString();
+        
+        // Add your DbContext registration
         builder.Services.AddDbContext<JutTripsDbContext>(options =>
-        {
-            var mySqlConnectionString = DatabaseMetaData.GetMySqlConnectionString();
-            options.UseMySql(mySqlConnectionString, ServerVersion.AutoDetect(mySqlConnectionString));
-        });
+            options.UseMySql(mySqlConnectionString, ServerVersion.AutoDetect(mySqlConnectionString)));
     }
 }

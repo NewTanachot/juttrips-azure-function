@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
@@ -11,7 +12,7 @@ public class DbContextFactory : IDesignTimeDbContextFactory<JutTripsDbContext>
         
         var optionsBuilder = new DbContextOptionsBuilder<JutTripsDbContext>();
         optionsBuilder.UseMySql(mySqlConnectionString, ServerVersion.AutoDetect(mySqlConnectionString));
-
+        
         return new JutTripsDbContext(optionsBuilder.Options);
     }
 }

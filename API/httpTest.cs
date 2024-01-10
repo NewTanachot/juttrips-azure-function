@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web.Http;
 using juttrips_azure_function.Domain.Entities;
 using juttrips_azure_function.Infrastructure.DatabaseConfig;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +19,7 @@ public class HttpTest
 
     public HttpTest(JutTripsDbContext dbContext)
     {
-        _dbContext = dbContext;
+        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
     
     [FunctionName("test")]
@@ -55,7 +54,7 @@ public class HttpTest
     {
         try
         {
-            var result = await _dbContext.Users.ToListAsync();
+            var result = await _dbContext.User.ToListAsync();
     
             return new OkObjectResult(result);
         }
@@ -73,11 +72,11 @@ public class HttpTest
         {
             var user = new User()
             {
-                UserName = "Newtanachot",
+                Name = "Newtanachot",
                 Password = "password"
             };
 
-            await _dbContext.Users.AddAsync(user);
+            await _dbContext.User.AddAsync(user);
             await _dbContext.SaveChangesAsync();
     
             return new OkResult();
