@@ -6,12 +6,10 @@ namespace juttrips_azure_function.Domain.Entities;
 
 public class Group : Entity
 {
-    public bool IsPublic { get; set; } = false;
-
     [MaxLength(50)] 
-    public string OwnerUserId { get; set; } = string.Empty;
-
-    public List<User>? Users { get; set; }
-    
+    public string? Image { get; set; }
+    public int? Sequence { get; set; }
+    public bool IsPublic { get; set; } = false;
+    public List<UserGroup>? UserGroups { get; set; }
     public List<GroupPlace>? Places { get; set; }
 }

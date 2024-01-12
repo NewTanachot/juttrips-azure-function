@@ -7,7 +7,13 @@ public class JutTripsDbContext : DbContext
 {
     public DbSet<User> User { get; set; } = null!;
 
+    public DbSet<Appearance> Appearance { get; set; } = null!;
+
+    public DbSet<Card> Card { get; set; } = null!;
+
     public DbSet<Group> Group { get; set; } = null!;
+
+    public DbSet<UserGroup> UserGroup { get; set; } = null!;
 
     public DbSet<UserPlace> UserPlace { get; set; } = null!;
 
@@ -24,5 +30,9 @@ public class JutTripsDbContext : DbContext
     
         // force mysql to use "utf8mb3"
         modelBuilder.UseCollation("utf8mb3_general_ci");
+        
+        // set composite primary key in UserGroup
+        modelBuilder.Entity<UserGroup>()
+            .HasKey(ug => new { ug.UserId, ug.GroupId });
     }
 }
