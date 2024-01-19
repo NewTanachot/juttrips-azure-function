@@ -1,8 +1,8 @@
 using System;
 
-namespace juttrips_azure_function.Infrastructure.DatabaseConfig;
+namespace juttrips_azure_function.Infrastructure.DbConfiguration;
 
-public static class DatabaseMetaData
+public static class DbMetaData
 {
     public static string GetMySqlConnectionString()
     {

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using juttrips_azure_function.Domain.Entities;
-using juttrips_azure_function.Infrastructure.DatabaseConfig;
+using juttrips_azure_function.Infrastructure.DbConfiguration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -30,7 +30,7 @@ public class HttpTest
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
         
-            log.LogInformation(DatabaseMetaData.GetMySqlConnectionString());
+            log.LogInformation(DbMetaData.GetMySqlConnectionString());
             
             string name = req.Query["name"];
 

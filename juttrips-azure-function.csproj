@@ -26,6 +26,6 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Core\" />
+      <Folder Include="API\Model\Response\" />
     </ItemGroup>
 </Project>

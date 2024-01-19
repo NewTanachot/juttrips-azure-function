@@ -1,7 +1,8 @@
 using juttrips_azure_function.Domain.Entities;
+using juttrips_azure_function.Infrastructure.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 
-namespace juttrips_azure_function.Infrastructure.DatabaseConfig;
+namespace juttrips_azure_function.Infrastructure.DbConfiguration;
 
 public class JutTripsDbContext : DbContext
 {
@@ -11,13 +12,13 @@ public class JutTripsDbContext : DbContext
 
     public DbSet<Card> Card { get; set; } = null!;
 
+    public DbSet<Category> Category { get; set; } = null!;
+
     public DbSet<Group> Group { get; set; } = null!;
 
     public DbSet<UserGroup> UserGroup { get; set; } = null!;
-
-    public DbSet<UserPlace> UserPlace { get; set; } = null!;
-
-    public DbSet<GroupPlace> GroupPlace { get; set; } = null!;
+    
+    public DbSet<Place> Places { get; set; } = null!;
 
     public JutTripsDbContext(DbContextOptions<JutTripsDbContext> options) : base(options)
     {
@@ -31,8 +32,6 @@ public class JutTripsDbContext : DbContext
         // force mysql to use "utf8mb3"
         modelBuilder.UseCollation("utf8mb3_general_ci");
         
-        // set composite primary key in UserGroup
-        modelBuilder.Entity<UserGroup>()
-            .HasKey(ug => new { ug.UserId, ug.GroupId });
+        modelBuilder.ApplyConfiguration(new UserGroupTypeConfiguration());
     }
 }
