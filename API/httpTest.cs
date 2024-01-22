@@ -30,7 +30,7 @@ public class HttpTest
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
         
-            log.LogInformation(DbMetaData.GetMySqlConnectionString());
+            log.LogInformation(DbExtension.GetMySqlConnectionString());
             
             string name = req.Query["name"];
 

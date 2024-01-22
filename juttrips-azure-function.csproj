@@ -27,5 +27,6 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="API\Model\Response\" />
+      <Folder Include="Domain\Exception\" />
     </ItemGroup>
 </Project>
