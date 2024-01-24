@@ -7,7 +7,7 @@ public class DbContextFactory : IDesignTimeDbContextFactory<JutTripsDbContext>
 {
     public JutTripsDbContext CreateDbContext(string[] args)
     {
-        var mySqlConnectionString = DbMetaData.GetMySqlConnectionString();
+        var mySqlConnectionString = DbExtension.GetMySqlConnectionString();
         
         var optionsBuilder = new DbContextOptionsBuilder<JutTripsDbContext>();
         optionsBuilder.UseMySql(mySqlConnectionString, ServerVersion.AutoDetect(mySqlConnectionString));

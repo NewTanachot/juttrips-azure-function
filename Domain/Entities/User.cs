@@ -9,11 +9,11 @@ public class User : Entity
 {
     [Required]
     [MaxLength(50)]
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = null!;
     
     [Required] 
     [MaxLength(50)] 
-    public string Password { get; set; } = string.Empty;
+    public string Password { get; set; } = null!;
     
     [EmailAddress] 
     [MaxLength(50)] 
@@ -24,7 +24,7 @@ public class User : Entity
     
     [Required] 
     [MaxLength(50)]
-    public string IvKey { get; set; } = string.Empty;
+    public string IvKey { get; set; } = null!;
     
     public int SubscriptionTier { get; set; } // Enum
     
