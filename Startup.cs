@@ -1,8 +1,7 @@
 using juttrips_azure_function;
 using juttrips_azure_function.Infrastructure.DbConfiguration;
+using juttrips_azure_function.Infrastructure.DependencyInjection;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 
@@ -12,9 +11,8 @@ public class Startup : FunctionsStartup
 {
     public override void Configure(IFunctionsHostBuilder builder)
     {
-        var mySqlConnectionString = DbMetaData.GetMySqlConnectionString();
-        
-        builder.Services.AddDbContext<JutTripsDbContext>(options =>
-            options.UseMySql(mySqlConnectionString, ServerVersion.AutoDetect(mySqlConnectionString)));
+        builder.Services.AddJutTripsDbContext();
+        builder.Services.AddServiceInjection();
+        builder.Services.AddRepositoryInjection();
     }
 }
