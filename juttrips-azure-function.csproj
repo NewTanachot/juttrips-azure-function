@@ -27,6 +27,7 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="API\Model\Response\" />
+      <Folder Include="Core\DTO\Auth\" />
       <Folder Include="Domain\Exception\" />
     </ItemGroup>
 </Project>

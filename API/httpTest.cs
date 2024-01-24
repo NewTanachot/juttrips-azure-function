@@ -22,7 +22,7 @@ public class HttpTest
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
     
-    [FunctionName("test")]
+    [FunctionName("run")]
     public async Task<IActionResult> RunAsync(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ILogger log)
     {
@@ -85,5 +85,13 @@ public class HttpTest
         {
             return new BadRequestObjectResult(exception);
         }
+    }
+
+    [FunctionName("test")]
+    public async Task<IActionResult> Test(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "GET", 
+            Route = "test/{text}")] [FromRoute] string text)
+    {
+        return new OkObjectResult(text);
     }
 }
