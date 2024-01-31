@@ -87,11 +87,12 @@ public class HttpTest
         }
     }
 
-    [FunctionName("test")]
-    public async Task<IActionResult> Test(
+    [FunctionName("test999")]
+    public IActionResult Test(
         [HttpTrigger(AuthorizationLevel.Anonymous, "GET", 
-            Route = "test/{text}")] [FromRoute] string text)
+            Route = "test999/{uuoo?}")] HttpRequest request, string uuoo)
     {
-        return new OkObjectResult(text);
+        Console.WriteLine(uuoo);
+        return new OkObjectResult(uuoo);
     }
 }
